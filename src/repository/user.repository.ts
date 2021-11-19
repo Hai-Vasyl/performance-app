@@ -1,8 +1,8 @@
 import { EntityRepository, Repository } from 'typeorm';
 
 import { User } from 'src/entity';
-import { CreateUserDto } from 'src/dto/create-user.dto';
 import { getColor } from 'src/helpers/colorGenerator';
+import { RegisterUserDto } from 'src/dto/register-user.dto';
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
@@ -10,8 +10,12 @@ export class UserRepository extends Repository<User> {
     return this.findOne({ id });
   }
 
-  async createUser(createUserDto: CreateUserDto): Promise<User> {
-    const user = { ...this.create(), ...createUserDto, avatar: getColor() };
+  async findUserByEmail(email: string): Promise<User> {
+    return this.findOne({ email });
+  }
+
+  async createUser(registerUserDto: RegisterUserDto): Promise<User> {
+    const user = { ...this.create(), ...registerUserDto, avatar: getColor() };
     return this.save(user);
   }
 }

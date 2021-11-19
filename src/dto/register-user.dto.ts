@@ -5,32 +5,32 @@ import { ValidationMessages } from '../config/validation.config';
 
 const { IS_NOT_EMPTY, MAX_LENGTH } = ValidationMessages;
 
-export class CreateUserDto {
-  @IsNotEmpty({
-    message: IS_NOT_EMPTY,
-  })
-  @MaxLength(25, {
-    message: MAX_LENGTH,
-  })
+export class RegisterUserDto {
+  // @IsNotEmpty({
+  //   message: IS_NOT_EMPTY,
+  // })
+  // @MaxLength(25, {
+  //   message: MAX_LENGTH,
+  // })
   readonly firstname: string;
 
-  @IsNotEmpty({
-    message: IS_NOT_EMPTY,
-  })
-  @MaxLength(25, {
-    message: MAX_LENGTH,
-  })
+  // @IsNotEmpty({
+  //   message: IS_NOT_EMPTY,
+  // })
+  // @MaxLength(25, {
+  //   message: MAX_LENGTH,
+  // })
   readonly lastname: string;
 
-  @IsNotEmpty({
-    message: IS_NOT_EMPTY,
-  })
-  @IsEmail()
+  // @IsNotEmpty({
+  //   message: IS_NOT_EMPTY,
+  // })
+  // @IsEmail()
   readonly email: string;
 
-  @IsNotEmpty({
-    message: IS_NOT_EMPTY,
-  })
+  // @IsNotEmpty({
+  //   message: IS_NOT_EMPTY,
+  // })
   readonly password: string;
 
   readonly role: UserRoles;

@@ -1,20 +1,40 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { CreateUserDto } from 'src/dto/create-user.dto';
-import { User } from 'src/entity';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 
+import { LocalAuthGuard } from 'src/guards/local-auth.guard';
 import { UserService } from './user.service';
+import { RegisterUserDto } from 'src/dto/register-user.dto';
+import { AuthService } from 'src/auth/auth.service';
+import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
+import { TokenDto } from 'src/dto/token.dto';
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private authService: AuthService,
+  ) {}
 
-  @Get(':id')
-  getUsers(@Param('id') id): Promise<User> {
-    return this.userService.getUserById(id);
+  @UseGuards(JwtAuthGuard)
+  @Get('protected')
+  getUsers(@Request() req): any {
+    return req.user;
   }
 
-  // @Post('register')
-  // getUsers(@Body() createUserDto: CreateUserDto): Promise<User> {
-  //   return this.userService.getUserById(id);
-  // }
+  @UseGuards(LocalAuthGuard)
+  @Post('login')
+  loginUser(@Request() req): TokenDto {
+    return this.authService.login({ userId: Number(req.user.id) });
+  }
+
+  @Post('register')
+  registerUser(@Body() registerUserDto: RegisterUserDto): Promise<TokenDto> {
+    return this.userService.registerUser(registerUserDto);
+  }
 }
