@@ -4,9 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 
 import { UserRepository } from 'src/repository/user.repository';
 import { User } from 'src/entity';
-import { RegisterUserDto } from 'src/dto/register-user.dto';
-import { JwtPayloadDto } from 'src/dto/jwt-payload.dto';
-import { TokenDto } from 'src/dto/token.dto';
+import { RegisterUserDto, JwtPayloadDto, TokenDto } from 'src/dto';
 
 @Injectable()
 export class AuthService {
@@ -25,7 +23,7 @@ export class AuthService {
       throw new UnauthorizedException('User with this email is not exists');
     }
 
-    const isValidPassword = bcrypt.compareSync(user.password, password);
+    const isValidPassword = bcrypt.compareSync(password, user.password);
 
     if (!isValidPassword) {
       throw new UnauthorizedException('Password is wrong, try another one');

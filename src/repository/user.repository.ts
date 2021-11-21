@@ -2,7 +2,7 @@ import { EntityRepository, Repository } from 'typeorm';
 
 import { User } from 'src/entity';
 import { getColor } from 'src/helpers/colorGenerator';
-import { RegisterUserDto } from 'src/dto/register-user.dto';
+import { RegisterUserDto } from 'src/dto';
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {

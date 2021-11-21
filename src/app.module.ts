@@ -1,7 +1,16 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import {
+  LoginValidationMiddleware,
+  RegisterValidationMiddleware,
+} from './middlewares/validation';
 import { AuthModule } from './auth/auth.module';
 import { TodoModule } from './todo/todo.module';
 import { UserModule } from './user/user.module';
@@ -15,4 +24,13 @@ import { UserModule } from './user/user.module';
     AuthModule,
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoginValidationMiddleware)
+      .forRoutes({ path: 'users/login', method: RequestMethod.POST });
+    consumer
+      .apply(RegisterValidationMiddleware)
+      .forRoutes({ path: 'users/register', method: RequestMethod.POST });
+  }
+}

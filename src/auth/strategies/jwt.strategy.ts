@@ -2,7 +2,7 @@ import { getConfigToken } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
-import { JwtPayloadDto } from 'src/dto/jwt-payload.dto';
+import { JwtPayloadDto } from 'src/dto';
 
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
