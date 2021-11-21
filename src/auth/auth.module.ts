@@ -6,8 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { UserRepository } from 'src/repository/user.repository';
 import { AuthService } from './auth.service';
-import { JwtStrategy } from './jwt.strategy';
-import { LocalStrategy } from './local.strategy';
+import { JwtStrategy, LocalStrategy } from './strategies';
 
 @Module({
   imports: [
