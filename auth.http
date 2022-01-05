@@ -1,0 +1,22 @@
+@host = http://localhost:5000
+
+post {{host}}/users/register
+Content-Type: application/json
+
+{
+  "firstname": "Vasyl",
+  "lastname": "Hai",
+  "email": "hai.vasyl20@gmail.com",
+  "password": "vasyl.hai",
+  "role": "admin"
+}
+
+###
+
+post {{host}}/users/login
+Content-Type: application/json
+
+{
+  "email": "hai.vasyl20@gmail.com",
+  "password": "vasyl.hai"
+}
